@@ -1,0 +1,8 @@
+Install
+On a Linux workstation (e.g. Mint), install Tomcat7 and java dependencies.
+This app relies on Tomcat7 and the latest servlet APIs to handle file uploads.
+
+Testing
+1) Launch Tomcat (e.g. from Eclipse)
+2) Check http://localhost:8080/TOPS/   
+3) Login with the credentials you defined in setup-db.sql (default for user admin is yourpassword).

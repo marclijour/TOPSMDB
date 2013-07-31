@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <resource-ref>
+    <description>DB Connection</description>
+    <res-ref-name>jdbc/topsDB</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+  </resource-ref>
+  <context-param>
+    <description>Name of the DB directory for file management and back-up purposes.</description>
+    <param-name>dbname</param-name>
+    <param-value>topsDB</param-value>
+  </context-param>
+  <context-param>
+    <param-name>path-to-back-ups</param-name>
+    <param-value>/var/lib/tomcat7/TOPS-back-ups/</param-value>
+  </context-param>
+  <context-param>
+    <description>Subdirectory where download files are available.</description>
+    <param-name>downloads</param-name>
+    <param-value>downloads/</param-value>
+  </context-param>
+  <context-param>
+    <param-name>version</param-name>
+    <param-value>Version 1.9.1 - July 30, 2013</param-value>
+  </context-param>
+</web-app>

@@ -1,0 +1,64 @@
+Here you'll find some hints to configure your development machine.
+
+Java & Derby setup
+- assuming Java is installed on your machine (e.g. java version "1.7.0" and up)
+- assuming Tomcat7 is installed in /var/lib/tomcat7/ (typical for Debian and Ubuntu derivations)
+- set derby.system.home (alternative to defining location of DB): http://db.apache.org/derby/docs/dev/devguide/cdevdvlp13018.html
+- check http://db.apache.org/derby/papers/DerbyTut/install_software.html#derby_configure
+- Check http://www.ibm.com/developerworks/data/library/techarticle/dm-0508bader/
+
+- set system variables: in ~/.bashrc for example:
+   JAVA_HOME=/usr/lib/jvm/default-java
+   CLASSPATH=$CLASSPATH:/home/marc/devel/db-derby-10.8.2.2-bin/lib/derby.jar:/home/marc/devel/db-derby-10.8.2.2-bin/lib/derbytools.jar
+   export JAVA_HOME CLASSPATH
+   
+- create the derby database using the file setup-db.sql (same directory as this file), run this in this directory:
+  $ java -Dij.outfile=createDB.log org.apache.derby.tools.ij setup-db.sql
+  (make sure the CLASSPATH variable is set, or use this switch with full path to the jar files: -cp derby.jar:derbytools.jar)
+  
+- If everything goes well, you should be able to reproduce the following session.
+
+$  java org.apache.derby.tools.ij
+
+ij> connect 'jdbc:derby:/var/lib/tomcat7/topsDB;user=tops;password=900bst';
+
+ij> show tables;
+TABLE_SCHEM         |TABLE_NAME                    |REMARKS             
+------------------------------------------------------------------------
+SYS                 |SYSALIASES                    |                
+(...)    
+TOPS                |CITY_CHAPTER                  |                    
+TOPS                |DBUSER                        |                    
+TOPS                |MEMBERS                       |   
+
+ij> describe members;
+COLUMN_NAME         |TYPE_NAME|DEC&|NUM&|COLUM&|COLUMN_DEF|CHAR_OCTE&|IS_NULL&
+------------------------------------------------------------------------------
+ID                  |INTEGER  |0   |10  |10    |AUTOINCRE&|NULL      |NO      
+FIRSTNAME           |VARCHAR  |NULL|NULL|100   |NULL      |200       |NO      
+LASTNAME            |VARCHAR  |NULL|NULL|100   |NULL      |200       |NO      
+JOBTITLE            |VARCHAR  |NULL|NULL|100   |NULL      |200       |YES     
+BRANCH              |VARCHAR  |NULL|NULL|150   |NULL      |300       |YES     
+MINISTRY            |VARCHAR  |NULL|NULL|100   |NULL      |200       |YES     
+CITY                |VARCHAR  |NULL|NULL|50    |NULL      |100       |YES     
+PHONE               |VARCHAR  |NULL|NULL|30    |NULL      |60        |YES     
+EMAIL               |VARCHAR  |NULL|NULL|100   |NULL      |200       |YES     
+HEARDFROM           |VARCHAR  |NULL|NULL|100   |NULL      |200       |YES     
+CREATDATE           |DATE     |0   |10  |10    |NULL      |NULL      |YES     
+CHAPTER             |VARCHAR  |NULL|NULL|100   |NULL      |200       |YES     
+LEFTDATE            |DATE     |0   |10  |10    |NULL      |NULL      |YES     
+LEFTWHY             |VARCHAR  |NULL|NULL|100   |NULL      |200       |YES     
+NEWSFLASH           |BOOLEAN  |NULL|NULL|1     |true      |NULL      |YES     
+TOPSPOT             |BOOLEAN  |NULL|NULL|1     |true      |NULL      |YES  
+
+ij> describe dbuser;
+COLUMN_NAME         |TYPE_NAME|DEC&|NUM&|COLUM&|COLUMN_DEF|CHAR_OCTE&|IS_NULL&
+------------------------------------------------------------------------------
+LOGIN               |VARCHAR  |NULL|NULL|100   |NULL      |200       |NO      
+EMAIL               |VARCHAR  |NULL|NULL|100   |NULL      |200       |NO      
+PASSWORD            |VARCHAR  |NULL|NULL|100   |NULL      |200       |NO      
+ROLE                |VARCHAR  |NULL|NULL|100   |NULL      |200       |NO   
+
+ij> exit;
+
+- Once you have the app running, you'll have to add members (fill the empty grid). 

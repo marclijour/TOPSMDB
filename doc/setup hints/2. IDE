@@ -1,0 +1,5 @@
+Some recommended features and plugins for Eclipse:
+- Web Tools Platform
+- subclipse (subversion repositories)
+- egit (git repositories)
+- Apache Derby Core plugin (e.g. 10.8.2.2)

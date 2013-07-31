@@ -1,0 +1,80 @@
+version 1.9.1 - July 30, 2013
+- clean-up
+
+version 1.9 - 14 January 2013
+- bounce backs: handle eml files and present a one-click option to unregister a member
+
+version 1.8 - 17 December 2012
+- bug fixes
+- faster search
+- now tracking subscription to Newsflash and TOPSpot (on by default)
+
+version 1.7 - 19 November 2012
+- ability to add/edit/delete users (roles and privileges)
+
+version 1.6 - 15-17 November 2012
+- roles & firstname are tracked during session, and displayed
+- logging with full timestamp 
+- enforcing read-only access for Guest user
+- adding user management (for admin) - add/edit/delete users (privileges)
+- use JSP taglib (JSTL)
+- host jQuery.js (avoiding warning windows in client browsers)
+- improving database connection pooling management
+- clean up code (removed Database proxy)
+- made the search case insensitive
+- added two columns : date somebody left, and rationale for leaving
+- added search for members inactive/left
+- added ability to reinstantiate members back (edit inactive members)
+
+
+version 1.5 - 9 November 2012
+- added tables dbuser (for login & roles), flagged (for member check), and left columns for members
+- perform login credential check from dbuser table 
+- now log members as inactive (with a leftdate) instead of removing
+- improve timestamping in log4j 
+
+version 1.4 - 29 October 2012
+- bug fixes (database insert/update)
+- locked email in edit form (when it exists)
+- focus on first input textfield
+
+version 1.3 - 18 October 2012
+- grid legend mentions members instead of items
+- fixed add member form
+- styles fixed in add and edit forms
+
+version 1.2 - 17 October 2012
+- ability to download a CSV file (entire grid)
+- ability to filter by chapter (using the search bar)
+- fixed bug while filtering: fixed page number
+- debugged CSS (declaration and link) - fixed IE bug
+- cleaned up HTML and body wrappers unneeded 
+
+version 1.1 - 12 October 2012
+- back-up & zipped files available for download
+- connection pooling, JNDI lookup
+- clean up: removed files no longer necessary (deprecated)
+
+version 1.0 - 10 October 2012
+- database back-up (online/hot), available to admin
+- deployment sets up and makes use of back-up directory (in Tomcat7 home)
+
+version 0.8 - 26 July
+- ability to update a member's email where there was none
+
+version 0.7 - 18 July 2012
+- added an account for TOPSpot, and one for OPSpedia
+- version control enabled
+- fixed bug add/edit chapter for new member
+- logging actions by users
+
+version 0.3 - 15 June 2012 
+- user table, chapter table
+- upload users from MyOPS table cross-referencing them with city-chapter table
+- deployment scripts
+
+version 0.2 - 14 June 2012
+- login page and session management
+
+version 0.1 - 5 June 2012
+- basic version including list, batch member upload, add/edit/remove member, and chunks of emails

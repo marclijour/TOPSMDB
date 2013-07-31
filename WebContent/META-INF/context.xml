@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+    <Resource name="jdbc/topsDB" 
+              auth="Container"
+              type="javax.sql.DataSource"   
+              driverClassName="org.apache.derby.jdbc.EmbeddedDriver"
+              url="jdbc:derby:/var/lib/tomcat7/topsDB;user=tops;password=900bst"
+              maxActive="10" 
+              maxIdle="4"/>
+</Context>

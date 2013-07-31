@@ -1,0 +1,336 @@
+@CHARSET "UTF-8"; 
+/*
+   Copyright 2012 Marc Lijour
+    This file is part of TOPSMDB.
+
+    TOPSMDB is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+  
+    TOPSMDB is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#menu {
+	width: 6em;
+	float: left;
+	
+}
+
+.button, .adminbutton, #logout {
+	display: block;
+	background-color: buttonface;
+	border: black solid 1px;
+	width: 5em;
+	text-align: left;
+	align: left;
+	margin: .2em 1em .2em 0;
+	padding: .2em;
+	font-weight: bold;
+	font-family: sans-serif;
+	-moz-user-select: none;
+ 	-khtml-user-select: none;
+ 	-webkit-user-select: none;
+ 	user-select: none;
+}
+.button:hover {
+	background-color: highlight;
+} 
+
+.adminbutton {
+	background-color: red;
+	color: white;
+}
+.adminbutton:hover {
+	background-color: navy;
+}
+
+#logout {
+	background-color: green;
+	color: white;
+}
+#logout:hover {
+	background-color: red;
+}
+
+.spacer {
+	display: block;
+	width: 5em;
+	margin: .2em 1em .2em 0;
+	padding: .2em;
+	background-color: navy;
+}
+
+#content {
+	border: 1px black dotted;
+	float: left;
+	width: 80%;
+	margin-left: 2em;
+}
+
+#flexigrid {
+	visibility: hidden;
+}
+
+h5 {
+	margin-top: -2em;
+	margin-left: 20em;
+	font-family: monospace;
+}
+
+h4#userid {
+	color: #CC9;
+	width: 85%;
+	margin: 1em;
+	margin-top: -1.4em;
+	text-align: right;
+	margin-bottom: .2em;
+	text-transform:capitalize;
+}
+h1.load {
+	font-size: large;
+}
+
+.table td, input {
+	font-size: smaller;
+	padding-left: .5em;
+	padding-right: .5em;
+	vertical-align: top;
+}
+
+td.rmbutton {
+	text-align: center;
+	align: center;
+}
+.rmbutton {
+	background-color: white;
+	color: red;
+}
+td.firtname	{width: 15em}
+td.lastname	{width: 15em}
+td.jobtitle	{width: 20em}
+td.branch	{width: 20em}
+td.ministry	{width: 15em}
+td.phone	{width: 14em; border: olive solid 1px;}
+
+.table tr:FIRST-CHILD td {
+	font-weight: bold;
+	border: 0px;
+	border-bottom: 1px solid olive;
+}
+
+.backlink {
+	margin-top: 2em;
+	font-style: italic;
+	font-family: monospace;
+}
+.errormsg {
+	color: navy;
+}
+
+/* ----------------- Titles & content -------------------- */
+.title {
+	margin-left: .8em;
+	color: #222;
+}
+li  {
+	color: grey;
+	font-style: italic;
+}
+p.smallwarning {
+	color: orange;
+	font-style: italic;
+	font-size: small;
+}
+p.info {
+	color: darkgrey;
+	font-style: italic;
+}
+
+/* ----------------- Add/Edit form ---------------------------- */
+.addform {
+	width: 30em;
+	margin-bottom: 10px;
+}
+input[type="text"].addform {
+	width: 14em;
+	background-color: AntiqueWhite;
+	display: block;
+}
+input[type="text"].readonly {
+	width: 14em;
+	background-color: Silver;
+	display: block;
+}
+input[type="button"].cancel {
+	margin-top: 1.7em;
+	margin-left: 4em;
+	margin-bottom: 1em;
+	width: 10em;
+}
+input[type="submit"].addform {
+	margin-top: 1.7em;
+	margin-left: 5em;
+	margin-bottom: 1em;
+	width: 10em;
+}
+span.label {
+	width: 10em;
+	display: block;
+	float: left;
+	text-align: right;
+	padding-right: .1em;
+}
+span.asterisk {
+	display: block;
+	float: left;
+	width: 2em;
+	color: red;
+	font-style: italic;
+	font-size:xx-small;
+	vertical-align:top
+}
+p.addforminfo {
+	font-style: italic;
+	font-size: x-small;
+}
+select.addform  {
+	width: 13.5em;
+	display: block;
+}
+option.addform {
+	margin: 0;
+}
+ .flexigrid .add {
+    background: url(images/add.png) no-repeat left;
+}
+ .flexigrid .delete {
+    background: url(images/close.png) no-repeat left;
+}
+ .flexigrid .edit {
+    background: url(images/pencil.png) no-repeat left;
+}
+ .flexigrid .save {
+    background: url(images/save.png) no-repeat left;
+}
+
+input#editformsubmit {
+	margin-top: 1.7em;
+	margin-left: 5em;
+	margin-bottom: 1em;
+	width: 10em;
+}
+input#editformcancel {
+	margin-top: 1.7em;
+	margin-left: 4em;
+	margin-bottom: 1em;
+	width: 10em;
+}
+input.raggedright {
+	margin-top: -2.5em;
+	width: 10em;
+	float: right;
+}
+div#formContainer {
+	width: 35em;
+}
+/* ----------------- Chunks ---------------------------- */
+/*
+span.chunks {
+	display: block;
+	margin-bottom: 2em;
+	padding-right: .1em;
+	color: red;
+	float: left;
+}*/
+
+input[type="text"].chunks {
+	margin-left: 1em;
+	margin-bottom: 2em;
+	width: 4em;
+	background-color: AntiqueWhite;
+	text-align: right;
+}
+
+textarea.chunk {
+	border: 1px lightgrey dotted;
+	height: 2em;
+	font-family: monospace;
+	font-size: small;
+	width: 72em;
+	height: 20em;
+	
+}
+h4.chunk {
+	margin-bottom: .3em;
+	color: navy;
+}
+
+/* ----------------- Table (for user management) ---------------------------- */
+table#users {
+	
+}
+table#users th {
+	border-bottom: 2px solid #000;
+    border-collapse:collapse;
+    border-spacing:0;
+}
+table#users th:hover {
+    background-color: lightblue;
+}
+table#users tr:first-child:hover{
+	background-color: #FFF;	
+}
+table#users tr:hover{
+	background-color: highlight;	
+}
+table#users td {
+	padding-right: 1em;
+	padding-left: .25em;
+	padding-bottom: .1em;
+}
+span.users, input.users {
+	display: inline;
+	width: 7em;
+	margin-right: .5em;
+	margin-bottom:1em;
+}
+
+
+/* ----------------- Errors ---------------------------- */
+div.error {
+	border: 1px red solid;
+	margin-top: 1em;
+	padding: .5em;
+	height: 3em;
+	width: 50em;
+	color: navy;
+}
+
+
+
+/* ----------------- Bounces ---------------------------- */
+div#action {
+	background-color: #CF9;
+	padding: 1em;
+	width: 50em;
+}
+div#emaildump {
+	background-color: #CCF;
+	padding: 1em;
+	width: 50em;	
+}
+div.fileupload {
+	background-color: #FEF;
+	padding: 1em;
+	width: 50em;
+}
+p.warning {
+	color: red;
+}
