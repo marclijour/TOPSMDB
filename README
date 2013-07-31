@@ -1,12 +1,10 @@
-Overview
+=Overview=
 TOPSMDB is a simple web application to manage a list of members for an organization.
 
 History
-This application was developed in 2012 to manage the 4,000 members of Tomorrow's Ontario Public Service (TOPS), an employee network of the Ontario Public Service (an employee network is an association of employees, working
-as volunteers). TOPS is focused on professional development and innovation (Leading, Learning, and Linking/Networking).
+This application was developed in 2012 to manage the 4,000 members of Tomorrow's Ontario Public Service (TOPS), an employee network of the Ontario Public Service (an employee network is an association of employees, working as volunteers). TOPS is focused on professional development and innovation (Leading, Learning, and Linking/Networking).
 
-When I took over as IT provincial lead early 2012, one of my first orders of business was to fix the old database app. TOPSMDB was designed to be portable (a WAR file with an embedded database that could be dropped on any Servlet container), 
-and hackable (free software suited to collaborative development, using one of the enterprise software languages: Java). 
+When I took over as IT provincial lead early 2012, one of my first orders of business was to fix the old database app. TOPSMDB was designed to be portable (a WAR file with an embedded database that could be dropped on any Servlet container), and hackable (free software suited to collaborative development, using one of the enterprise software languages: Java). 
 
 For this project, I explored flexigrid (thanks to Paulo P. Marinas for this wonderful tool) and Google gson library. The login code from Prashant brings some welcome eye-candy.
 
