@@ -3,3 +3,8 @@ Some recommended features and plugins for Eclipse:
 - subclipse (subversion repositories)
 - egit (git repositories)
 - Apache Derby Core plugin (e.g. 10.8.2.2)
+
+Setup
+- go in project properties > java build path > libraries 
+  and configure Eclipse to use your system JRE libraries 
+  (remove the default set by the files from the Git repository and add your system's JRE libraries)
