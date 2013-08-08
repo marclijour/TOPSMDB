@@ -78,6 +78,11 @@ CREATE TABLE flaggedmember (
 	
 -- TODO Set up your Admin account (with your email and password)
 INSERT INTO dbuser VALUES ('admin',   'admin@yoursite.com', 'yourpassword', 'Admin');
+-- e.g.
+INSERT INTO dbuser VALUES ('marc', 'marc.lijour@ontario.ca', '123', 'Admin');
+
+-- At least one member is expected when the webapp starts 
+INSERT INTO members (firstname, lastname, jobtitle, branch, ministry, city, phone, email, heardfrom, creatdate, chapter) VALUES ('Marc', 'Lijour', 'Education Officer', 'FLEPPB', 'EDU', 'Toronto', '416-212-8247', 'marc.lijour@ontario.ca', 'Marc', '2013-08-07', 'Toronto');
 
 -- Known links between cities and chapters
 INSERT INTO city_chapter VALUES('Ajax', 'Pickering');
