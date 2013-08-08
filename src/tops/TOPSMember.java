@@ -17,12 +17,15 @@
 */
 package tops;
 
+import com.google.gson.Gson;
+
 public class TOPSMember {
 	private String firstname, lastname, jobtitle, branch, ministry, city, phone, email,	heardfrom, creatdate,
-					chapter;
+					chapter, leftdate, leftwhy, newsflash, topspot;
 	
 	public TOPSMember(String firstname, String lastname, String jobtitle, String branch, String ministry, 
-			String city, String phone, String email, String heardfrom, String creatdate, String chapter) {
+			String city, String phone, String email, String heardfrom, String creatdate, String chapter,
+			String leftdate, String leftwhy, String newsflash, String topspot) {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.jobtitle = jobtitle;
@@ -33,7 +36,11 @@ public class TOPSMember {
 		this.email = email;
 		this.heardfrom = heardfrom;
 		this.creatdate = creatdate;
-		this.chapter = chapter;		
+		this.chapter = chapter;			
+		this.leftdate = leftdate;
+		this.leftwhy = leftwhy;
+		this.newsflash = newsflash;
+		this.topspot = topspot;
 	}
 
 	public String getFirstname() {
@@ -123,9 +130,50 @@ public class TOPSMember {
 	public void setChapter(String chapter) {
 		this.chapter = chapter;
 	}
-    
-    public String toString() {
+	
+	public String getLeftdate() {
+		return leftdate;
+	}
+
+	public void setLeftdate(String leftdate) {
+		this.leftdate = leftdate;
+	}
+
+	public String getLeftwhy() {
+		return leftwhy;
+	}
+
+	public void setLeftwhy(String leftwhy) {
+		this.leftwhy = leftwhy;
+	}
+
+	public String getNewsflash() {
+		return newsflash;
+	}
+
+	public void setNewsflash(String newsflash) {
+		this.newsflash = newsflash;
+	}
+
+	public String getTopspot() {
+		return topspot;
+	}
+
+	public void setTopspot(String topspot) {
+		this.topspot = topspot;
+	}
+	
+	public String toString() {
     	return "TOPS member [" + firstname + ", " + lastname + ", " + jobtitle + ", " + branch + ", " + ministry
-    			 + ", " + city  + ", " + phone + ", " + email + ", " + heardfrom + ", " + creatdate + ", " + chapter + "]";
+    			 + ", " + city  + ", " + phone + ", " + email + ", " + heardfrom + ", " + creatdate + ", " + chapter
+    			 + ", left on: " + ((leftdate==null)?"N/A":leftdate)  
+    			 + ", left because: " + ((leftwhy==null)?"N/A":leftwhy) 
+    			 + ", Newflash=" + newsflash + ", TOPSpot=" + topspot + "]";
     }
+	
+	public String toJson() {
+		Gson gson = new Gson();
+		return gson.toJson(this);
+	}
+
 }

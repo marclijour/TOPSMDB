@@ -1,5 +1,5 @@
 /*
-   Copyright 2012 Marc Lijour
+   Copyright 2013 Marc Lijour
     This file is part of TOPSMDB.
 
     TOPSMDB is free software: you can redistribute it and/or modify
@@ -15,17 +15,19 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package tops.flexigrid;
+package tops.servlet.api;
 
-import tops.TOPSMember;
+import com.google.gson.Gson;
 
-public class Row {
-	private String id;
-	private TOPSMember cell;
-	
-	public Row(String id, TOPSMember cell) {
-		this.id = id;
-		this.cell = cell;
+public class IsMemberResponse {
+	private Boolean	found = null;
+
+	public IsMemberResponse(Boolean found) {
+		this.found = found;
 	}
-
+	
+	public String toJson() {
+		Gson gson = new Gson();
+		return gson.toJson(this);
+	}
 }

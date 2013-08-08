@@ -29,6 +29,9 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
+
+import tops.TOPSMember;
+
 import com.google.gson.Gson;
 
 /**
@@ -163,7 +166,7 @@ public class FlexiGridDataView {
 				String leftwhy = (results.getString(14) == null)?"":results.getString(14);
 				String newsflash = (results.getBoolean(15) == true)?"Y":"N";
 				String topspot = (results.getBoolean(16) == true)?"Y":"N";
-				Cell cell = new Cell(results.getString(2), results.getString(3), results.getString(4), 
+				TOPSMember cell = new TOPSMember(results.getString(2), results.getString(3), results.getString(4), 
 						results.getString(5), results.getString(6), results.getString(7), results.getString(8), 
 						results.getString(9), results.getString(10), results.getString(11), 
 						chapter, leftdate, leftwhy, newsflash, topspot); 
