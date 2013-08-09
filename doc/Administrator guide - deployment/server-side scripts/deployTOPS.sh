@@ -2,7 +2,7 @@
 orgdir=$(pwd)
 echo $orgdir
 if [ "$1" = "" ] ; then
-	package="$(ls /root/TOPS-v*.war | sort -r | head -1)"
+	package="$(ls /root/TOPS-v*.war | sed 's/\.war//' | sort -r | sed 's/$/\.war/'| head -1)"
 else
 	package="$1"
 fi
