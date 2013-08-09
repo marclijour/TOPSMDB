@@ -21,9 +21,13 @@ private static Logger logger = Logger.getLogger(error_jsp.class);
 %>
 <%@ page session="true" %>
 <%
+final String deployDir = application.getInitParameter("deploy-dir");
+if(!deployDir.contains("TOPS"))
+	logger.warn("The deploy directory (" + deployDir + " does not contain \"TOPS\"");
+	
 if(session.getAttribute("user")==null) {
 	logger.debug("error.jsp: user = " + session.getAttribute("user"));
-	response.sendRedirect("/TOPS/login.jsp");
+	response.sendRedirect("/" + deployDir + "/login.jsp");
 	return;
 }
 %>
@@ -34,4 +38,5 @@ if(session.getAttribute("user")==null) {
 <% }else{ %>
 <p class="errormsg">Sorry, unexpected error...</p>
 <% } %>
-<span class="backlink">&lt; <a href="/TOPS/">Back</a></span>
+<span class="backlink">&lt; <a href="/<%= deployDir %>/">Back</a></span>
+

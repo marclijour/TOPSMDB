@@ -34,6 +34,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.MultipartConfig;
@@ -65,6 +66,7 @@ public class LoadBouncesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static Logger logger = Logger.getLogger(LoadBouncesServlet.class);
 	private DataSource ds = null;
+	private String deployDir = "ERROR";
 	
 	public static final int UNDEFINED = 0;
 	public static final int NOT_EML = 1;
@@ -81,6 +83,11 @@ public class LoadBouncesServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
     	super.init(config);
+    	
+    	ServletContext context = getServletContext();
+    	deployDir = context.getInitParameter("deploy-dir");	// defined in WEB-INF/web.xml
+    	if(!deployDir.contains("TOPS"))
+    		logger.warn("The deploy directory (" + deployDir + " does not contain \"TOPS\"");
     	
     	// setting up data source 
         Context ctx;
@@ -102,7 +109,7 @@ public class LoadBouncesServlet extends HttpServlet {
 		if(session.getAttribute("user")==null) {
 			//logger.debug("user = " + session.getAttribute("user"));
 			logger.warn("bounced unlogged user to login page");
-			response.sendRedirect("/TOPS/login.jsp");
+			response.sendRedirect("/" + deployDir + "/login.jsp");
 			return;
 		}		
 		
@@ -124,7 +131,7 @@ public class LoadBouncesServlet extends HttpServlet {
 		if(session.getAttribute("user")==null) {
 			//logger.debug("user = " + session.getAttribute("user"));
 			logger.warn("bounced unlogged user to login page");
-			response.sendRedirect("/TOPS/login.jsp");
+			response.sendRedirect("/" + deployDir + "/login.jsp");
 			return;
 		}		
 				
@@ -133,7 +140,7 @@ public class LoadBouncesServlet extends HttpServlet {
 		Part filePart = request.getPart("filename"); // Retrieves <input type="file" name="filename">
 		if(filePart == null) {
 			logger.fatal("Null filepart"); 
-			response.sendRedirect("/TOPS/error.jsp");	// TODO add custom error message mechanism
+			response.sendRedirect("/" + deployDir + "/error.jsp");	// TODO add custom error message mechanism
 			return;
 		}
 

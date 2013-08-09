@@ -21,25 +21,29 @@ private static Logger logger = Logger.getLogger(adduser_jsp.class);
 %>
 <%@ page session="true" %>
 <%
+final String deployDir = application.getInitParameter("deploy-dir");
+if(!deployDir.contains("TOPS"))
+	logger.warn("The deploy directory (" + deployDir + " does not contain \"TOPS\"");
+	
 String user = (String)session.getAttribute("user");
 if(user==null) {
 	//logger.debug("addmember.jsp: user = " + session.getAttribute("user"));
 	logger.warn("bounced unlogged user to login page");
-	response.sendRedirect("/TOPS/login.jsp");
+	response.sendRedirect("/" + deployDir + "/login.jsp");
 	return;
 }
 
 String role = (String)session.getAttribute("role");
 if(role == null || role.equals("Guest")) {
 	logger.warn("Guest user " + user + " attempted to add a user");
-	response.sendRedirect("/TOPS/"); // could be made more painful by logging the user out (punishment for working around JS)
+	response.sendRedirect("/" + deployDir + "/"); // could be made more painful by logging the user out (punishment for working around JS)
 	return;
 }
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <h2 class='title'>Authorized Users</h2>
-<form name="addForm" method="get"  action="/TOPS/admin/AddUserServlet" onsubmit="return validateForm()">
+<form name="addForm" method="get"  action="/<%= deployDir %>/admin/AddUserServlet" onsubmit="return validateForm()">
 <p class="addforminfo"><span class="asterisk">(*)</span>Fields marked with an asterisk are mandatory</p>
 <span class="label">Login</span><span class="asterisk">(*)</span><input class="addform" type="text" name="login"/>
 <span class="label">Email</span><span class="asterisk">(*)</span><input class="addform" type="text" name="email"/>

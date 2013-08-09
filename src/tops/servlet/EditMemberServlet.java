@@ -29,6 +29,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,7 +48,8 @@ public class EditMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static Logger logger = Logger.getLogger(EditMemberServlet.class);
 	private DataSource ds = null;
-       
+    private String deployDir = "ERROR";
+    
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -58,6 +60,11 @@ public class EditMemberServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
     	super.init(config);
+    	
+    	ServletContext context = getServletContext();
+    	deployDir = context.getInitParameter("deploy-dir");	// defined in WEB-INF/web.xml
+    	if(!deployDir.contains("TOPS"))
+    		logger.warn("The deploy directory (" + deployDir + " does not contain \"TOPS\"");
     	
     	// setting up data source 
         Context ctx;
@@ -79,7 +86,7 @@ public class EditMemberServlet extends HttpServlet {
 		if(session.getAttribute("user")==null) {
 			//logger.debug("user = " + session.getAttribute("user"));
 			logger.warn("bounced unlogged user to login page");
-			response.sendRedirect("/TOPS/login.jsp");
+			response.sendRedirect("/" + deployDir + "/login.jsp");
 			return;
 		}		
 		String user = (String)session.getAttribute("user");
@@ -156,7 +163,7 @@ public class EditMemberServlet extends HttpServlet {
 	    		conn.close();
 	    		conn = null;
 	        	
-	        	response.sendRedirect("/TOPS/");
+	        	response.sendRedirect("/" + deployDir + "/");
 				return;
 	        }
 	        
@@ -174,7 +181,7 @@ public class EditMemberServlet extends HttpServlet {
 		    		stmt = null;
 		    		conn.close();
 		    		conn = null;
-					response.sendRedirect("/TOPS/do/error.jsp?dupemail");
+					response.sendRedirect("/" + deployDir + "/do/error.jsp?dupemail");
 					return;
 				}
 			}
@@ -261,7 +268,7 @@ public class EditMemberServlet extends HttpServlet {
 		  }
 		
 		// Back to display
-		response.sendRedirect("/TOPS/");
+		response.sendRedirect("/" + deployDir + "/");
 	}
 
 	/**

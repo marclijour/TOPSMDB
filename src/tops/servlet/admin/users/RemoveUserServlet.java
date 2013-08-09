@@ -28,6 +28,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,6 +49,7 @@ public class RemoveUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static Logger logger = Logger.getLogger(RemoveUserServlet.class);
 	private DataSource ds = null;
+	private String deployDir = "ERROR";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -60,6 +62,12 @@ public class RemoveUserServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
     	super.init(config);
+    	
+    	// deployment directory
+    	ServletContext context = getServletContext();
+    	deployDir = context.getInitParameter("deploy-dir");	// defined in WEB-INF/web.xml
+    	if(!deployDir.contains("TOPS"))
+    		logger.warn("The deploy directory (" + deployDir + " does not contain \"TOPS\"");
     	
     	// setting up data source 
         Context ctx;
@@ -81,7 +89,7 @@ public class RemoveUserServlet extends HttpServlet {
 		if(session.getAttribute("user")==null) {
 			//logger.debug("user = " + session.getAttribute("user"));
 			logger.warn("bounced unlogged user to login page");
-			response.sendRedirect("/TOPS/login.jsp");
+			response.sendRedirect("/" + deployDir + "/login.jsp");
 			return;
 		}		
 		String user = (String)session.getAttribute("user");
@@ -140,7 +148,7 @@ public class RemoveUserServlet extends HttpServlet {
 		
 
 		// Back to display
-		response.sendRedirect("/TOPS/"); // TODO revise with proper AJAX
+		response.sendRedirect("/" + deployDir + "/"); // TODO revise with proper AJAX
 
 	}
 

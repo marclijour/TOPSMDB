@@ -19,6 +19,11 @@
 <%!
 private static Logger logger = Logger.getLogger(login_jsp.class);
 %>
+<%
+final String deployDir = application.getInitParameter("deploy-dir");
+if(!deployDir.contains("TOPS"))
+	logger.warn("The deploy directory (" + deployDir + " does not contain \"TOPS\"");
+%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -40,7 +45,7 @@ $("#msgbox").removeClass().addClass('myinfo').text('Validating Your Login ').fad
 
 this.timer = setTimeout(function () {
 $.ajax({
-url: '/TOPS/do/login/CheckLoginCredentialsServlet',
+url: '/<%= deployDir %>/do/login/CheckLoginCredentialsServlet',
 data: encodeURI('un='+ $('#login_id').val() +'&pw=' + $('#password').val()),
 type: 'post',
 success: function(msg){
@@ -51,8 +56,8 @@ $("#msgbox").html('Login Verified, Logging in.....').addClass('myinfo').fadeTo(9
 function()
 {
 //redirect to secure page
-	//document.location='/TOPS/do/login/loggingin.jsp?user='+msg;
-	document.location='/TOPS/';
+	//document.location='/<%= deployDir %>/do/login/loggingin.jsp?user='+msg;
+	document.location='/<%= deployDir %>/';
 });
 
 } else {
@@ -73,7 +78,7 @@ return false;
 
 </script>
 
-<title>Login to TOPS</title>
+<title>Login to <%= deployDir %></title>
 </head>
 <body>
 

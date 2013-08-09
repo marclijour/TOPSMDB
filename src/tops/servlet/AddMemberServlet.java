@@ -28,6 +28,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,6 +48,7 @@ public class AddMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static Logger logger = Logger.getLogger(AddMemberServlet.class);
 	private DataSource ds;
+	private String deployDir = "ERROR";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -59,6 +61,12 @@ public class AddMemberServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
     	super.init(config);
+    	
+    	// deployment directory
+    	ServletContext context = getServletContext();
+    	deployDir = context.getInitParameter("deploy-dir");	// defined in WEB-INF/web.xml
+    	if(!deployDir.contains("TOPS"))
+    		logger.warn("The deploy directory (" + deployDir + " does not contain \"TOPS\"");
     	
     	// setting up data source 
         Context ctx;
@@ -81,7 +89,7 @@ public class AddMemberServlet extends HttpServlet {
 		
 		if(user == null) {
 			logger.debug("user = null");
-			response.sendRedirect("/TOPS/login.jsp");
+			response.sendRedirect("/" + deployDir + ""/login.jsp");
 			return;
 		}	
 		
@@ -123,7 +131,7 @@ public class AddMemberServlet extends HttpServlet {
 	    		conn.close();
 	    		conn = null;
 	    		
-				response.sendRedirect("/TOPS/do/error.jsp?dupemail");
+				response.sendRedirect("/" + deployDir + "/do/error.jsp?dupemail");
 				return;
 			}
 			
@@ -194,7 +202,7 @@ public class AddMemberServlet extends HttpServlet {
 		}
 		
 		// Back to display
-		response.sendRedirect("/TOPS/");
+		response.sendRedirect("/" + deployDir + "/");
 	}
 
 	/**

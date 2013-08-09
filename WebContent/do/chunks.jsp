@@ -21,10 +21,14 @@
 %>
 <%@ page session="true" %>
 <%
+final String deployDir = application.getInitParameter("deploy-dir");
+if(!deployDir.contains("TOPS"))
+	logger.warn("The deploy directory (" + deployDir + " does not contain \"TOPS\"");
+	
 	if(session.getAttribute("user")==null) {
 		//logger.debug("chunks.jsp: user = " + session.getAttribute("user"));
 		logger.warn("bounced unlogged user to login page");
-		response.sendRedirect("/TOPS/login.jsp");
+		response.sendRedirect("/" + deployDir + "/login.jsp");
 		return;
 	}		
 %>
@@ -64,7 +68,7 @@ function updateChunks(max) {
     	}
   	}
 	var chapter=document.getElementById("chapterlist").options[document.getElementById("chapterlist").selectedIndex].value;
-	xmlhttp.open("GET","/TOPS/ChunkServlet?chunksize=" + max + "&chapter=" + chapter,true); // chapter can be chapter or 'All'
+	xmlhttp.open("GET","/<%= deployDir %>/ChunkServlet?chunksize=" + max + "&chapter=" + chapter,true); // chapter can be chapter or 'All'
 	xmlhttp.send();
 }
 </script>

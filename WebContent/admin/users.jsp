@@ -21,11 +21,15 @@ private static Logger logger = Logger.getLogger(users_jsp.class);
 %>
 <%@ page session="true" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<% // TODO revise this (embedded HTML code)
+<% 
+final String deployDir = application.getInitParameter("deploy-dir");
+if(!deployDir.contains("TOPS"))
+	logger.warn("The deploy directory (" + deployDir + " does not contain \"TOPS\"");
+	
 String user = (String)session.getAttribute("user");
 if(user == null) {
 	logger.debug("admin/users.jsp: user = null");
-	response.sendRedirect("/TOPS/login.jsp");
+	response.sendRedirect("/" + deployDir + "/login.jsp");
 	return;
 }
 

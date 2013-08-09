@@ -21,18 +21,22 @@ private static Logger logger = Logger.getLogger(addmember_jsp.class);
 %>
 <%@ page session="true" %>
 <%
+final String deployDir = application.getInitParameter("deploy-dir");
+if(!deployDir.contains("TOPS"))
+	logger.warn("The deploy directory (" + deployDir + " does not contain \"TOPS\"");
+	
 String user = (String)session.getAttribute("user");
 if(user==null) {
 	//logger.debug("addmember.jsp: user = " + session.getAttribute("user"));
 	logger.warn("bounced unlogged user to login page");
-	response.sendRedirect("/TOPS/login.jsp");
+	response.sendRedirect("/" + deployDir + "/login.jsp");
 	return;
 }
 
 String role = (String)session.getAttribute("role");
 if(role == null || role.equals("Guest")) {
 	logger.warn("Guest user " + user + " attempted to add a member");
-	response.sendRedirect("/TOPS/"); // could be made more painful by logging the user out (punishment for working around JS)
+	response.sendRedirect("/" + deployDir + "/"); // could be made more painful by logging the user out (punishment for working around JS)
 	return;
 }
 %>
@@ -42,7 +46,7 @@ if(role == null || role.equals("Guest")) {
 	Calendar calendar = Calendar.getInstance();
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 %>
-<form name="addForm" method="get"  action="/TOPS/AddMemberServlet" onsubmit="return validateForm()">
+<form name="addForm" method="get"  action="/<%= deployDir %>/AddMemberServlet" onsubmit="return validateForm()">
 <p class="addforminfo"><span class="asterisk">(*)</span>Fields marked with an asterisk are mandatory</p>
 <span class="label">First name</span><span class="asterisk">(*)</span><input class="addform" type="text" name="firstname"/>
 <span class="label">Last name</span><span class="asterisk">(*)</span><input class="addform" type="text" name="lastname"/>
@@ -86,7 +90,7 @@ if(role == null || role.equals("Guest")) {
 	<option class="addform" value="Sudbury">Sudbury</option>
 	<option class="addform" value="Thunder Bay">Thunder Bay</option>
 </select>
-<input class="addform cancel" type="button" value="Cancel" onclick="window.location.href='/TOPS/'"/>
+<input class="addform cancel" type="button" value="Cancel" onclick="window.location.href='/<%= deployDir %>/'"/>
 <input class="addform" type="submit" value="Submit"/>
 </form>
 

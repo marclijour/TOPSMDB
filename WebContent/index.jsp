@@ -26,12 +26,16 @@ private static String version = null;
 private String user= null;
 %>
 <%
+final String deployDir = application.getInitParameter("deploy-dir");
+if(!deployDir.contains("TOPS"))
+	logger.warn("The deploy directory (" + deployDir + " does not contain \"TOPS\"");
+	
 // user ID
 String userParam = (String)session.getAttribute("user");
 String userFirstname = (String)session.getAttribute("firstname");
 String userRole = (String)session.getAttribute("role");
 if(userParam==null) {
-        response.sendRedirect("/TOPS/login.jsp");
+        response.sendRedirect("/" + deployDir + "/login.jsp");
         return;
 }
 user = userParam.toLowerCase();
@@ -275,14 +279,14 @@ function remove(row) {	// TODO use jQuery instead
 	var email=$('td[abbr="email"] >div', row).html();
 	if(email != "&nbsp;") { // too many users with blank emails: see other approach below for those
 		//alert("remotely deleting " + email);
-		xmlhttp.open("GET","/TOPS/RemoveMemberServlet?email=" + email,true);
+		xmlhttp.open("GET","/<%= deployDir %>/RemoveMemberServlet?email=" + email,true);
 		xmlhttp.send();
 		
 	}else { // for users with blank email: try by name
 		var firstname = $('td[abbr="firstname"] >div', row).html();
 		var lastname = $('td[abbr="lastname"] >div', row).html();
 		//alert("remotely deleting " + firstname + " " + lastname);
-		xmlhttp.open("GET","/TOPS/RemoveMemberServlet?firstname=" + firstname + "&lastname=" + lastname,true);
+		xmlhttp.open("GET","/<%= deployDir %>/RemoveMemberServlet?firstname=" + firstname + "&lastname=" + lastname,true);
 		xmlhttp.send();
 	}
 }
@@ -292,7 +296,7 @@ function deleteRow(row) {
 
 function unregisterMember(email, cell) {
 	alert("Please confirm: unregistering member with email '" + email + "'?");
-	$.get("/TOPS/RemoveMemberServlet?email=" + email, function() {
+	$.get("/<%= deployDir %>/RemoveMemberServlet?email=" + email, function() {
 		var row = cell.parentNode.parentNode;
 		deleteRow(row);
 		console.log("removed user with email: " + email);

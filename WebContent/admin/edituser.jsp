@@ -21,18 +21,22 @@ private static Logger logger = Logger.getLogger(edituser_jsp.class);
 %>
 <%@ page session="true" %>
 <%
-String user = (String)session.getAttribute("user");
+final String deployDir = application.getInitParameter("deploy-dir");
+if(!deployDir.contains("TOPS"))
+	logger.warn("The deploy directory (" + deployDir + " does not contain \"TOPS\"");
+
+	String user = (String)session.getAttribute("user");
 if(user==null) {
 	//logger.debug("addmember.jsp: user = " + session.getAttribute("user"));
 	logger.warn("bounced unlogged user to login page");
-	response.sendRedirect("/TOPS/login.jsp"); 
+	response.sendRedirect("/" + deployDir + "/login.jsp"); 
 	return;
 }
 
 String role = (String)session.getAttribute("role");
 if(role == null || role.equals("Guest")) {
 	logger.warn("Guest user " + user + " attempted to edit a user");
-	response.sendRedirect("/TOPS/"); // TODO revise ; could be made more painful by logging the user out (punishment for working around JS)
+	response.sendRedirect("/" + deployDir + "/"); // TODO revise ; could be made more painful by logging the user out (punishment for working around JS)
 	return;
 }
 %>
@@ -40,7 +44,7 @@ if(role == null || role.equals("Guest")) {
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <h2 class='title'>Authorized Users</h2>
 <div id="formContainer">
-<form name="addForm" method="get"  action="/TOPS/admin/AddUserServlet" onsubmit="return validateForm()">
+<form name="addForm" method="get"  action="/<%= deployDir %>/admin/AddUserServlet" onsubmit="return validateForm()">
 <p class="addforminfo"><span class="asterisk">(*)</span>Fields marked with an asterisk are mandatory</p>
 <span class="label">Login</span><span class="asterisk">(*)</span><input class="addform readonly" type="text" name="login" value="${param.login}" readonly="readonly"/><!--  Login is key -->
 <span class="label">Email</span><span class="asterisk">(*)</span><input class="addform" type="text" name="email" value="${param.email}"/>
@@ -59,7 +63,7 @@ if(role == null || role.equals("Guest")) {
 </select>
 --%>
 <input class="addform cancel" type="button" value="Cancel" onclick='$("#content").load("admin/users.jsp");'/>
-<input class="addform raggedright" type="button" value="Remove" onclick='window.location.href="/TOPS/admin/RemoveUserServlet?login=" + encodeURI("${param.login}")'/><%-- TODO proper AJAX --%>
+<input class="addform raggedright" type="button" value="Remove" onclick='window.location.href="/<%= deployDir %>/admin/RemoveUserServlet?login=" + encodeURI("${param.login}")'/><%-- TODO proper AJAX --%>
 <input class="addform" type="submit" value="Submit"/>
 </form>
 </div>

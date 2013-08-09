@@ -4,7 +4,22 @@ This app relies on Tomcat7 and the latest servlet APIs to handle file uploads.
 
 (The Webcontent folder will be renamed TOPS and dropped into Tomcat's webapps folder, with classes compiled. Or use Eclipse that will compile the project for you.)
 
-Testing
+Testing in Eclipse
 1) Launch Tomcat (e.g. from Eclipse)
 2) Check http://localhost:8080/TOPS/   
 3) Login with the credentials you defined in setup-db.sql (default for user admin is yourpassword).
+
+Deployment on a remote server
+- export to a WAR file (from Eclipse)
+- copy the WAR file to the (prod or whichever) server (using FTP, SCP, etc)
+- unpack under webapps/ in Tomcat7 
+  (or use the deployTOPS.sh script available under /doc/Administrator guide - deployment/server-side scripts)
+
+Deployment of a testing version of this webapp on the same (prod or whichever folder)
+- shutdown Tomcat
+- copy this webapp directory under webapps/TOPS to something like webapps/TOPStesting
+- modify WEB-INF/web.xml (parameter deploy-dir) to launch this webapp under another name like TOPStesting
+- copy the entire derby directory (e.g. /var/lib/tomcat7/topsDB) under another directory (with another name)
+- modify META-INF/context.xml to point the data source to this testing database directory just created
+- launch Tomcat; the original TOPSMDB webapp and the testing version should run side by side 
+- use /TOPS or /TOPStesting to access one or the other

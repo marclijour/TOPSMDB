@@ -29,6 +29,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,7 +49,7 @@ public class RemoveMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static Logger logger = Logger.getLogger(RemoveMemberServlet.class);
 	private DataSource ds = null;
-
+	private String deployDir = "ERROR";
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -60,6 +61,11 @@ public class RemoveMemberServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
     	super.init(config);
+    	
+    	ServletContext context = getServletContext();
+    	deployDir = context.getInitParameter("deploy-dir");	// defined in WEB-INF/web.xml
+    	if(!deployDir.contains("TOPS"))
+    		logger.warn("The deploy directory (" + deployDir + " does not contain \"TOPS\"");
     	
     	// setting up data source 
         Context ctx;
@@ -82,7 +88,7 @@ public class RemoveMemberServlet extends HttpServlet {
 		if(session.getAttribute("user")==null) {
 			logger.info("anonymous tried to delete a user, back to login page!");
 			//logger.debug("user = " + session.getAttribute("user"));
-			response.sendRedirect("/TOPS/login.jsp");
+			response.sendRedirect("/" + deployDir + "/login.jsp");
 			return;
 		}		
 		

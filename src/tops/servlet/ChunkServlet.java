@@ -28,6 +28,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,6 +48,7 @@ public class ChunkServlet extends HttpServlet {
 	private static Logger logger = Logger.getLogger(Character.class);
 
     private DataSource ds = null;
+    private String deployDir = "ERROR";
     
     /**
      * @see HttpServlet#HttpServlet()
@@ -59,6 +61,11 @@ public class ChunkServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
     	super.init(config);
+    	
+    	ServletContext context = getServletContext();
+    	deployDir = context.getInitParameter("deploy-dir");	// defined in WEB-INF/web.xml
+    	if(!deployDir.contains("TOPS"))
+    		logger.warn("The deploy directory (" + deployDir + " does not contain \"TOPS\"");
     	
     	// setting up data source 
         Context ctx;
@@ -80,7 +87,7 @@ public class ChunkServlet extends HttpServlet {
 		if(session.getAttribute("user")==null) {
 			//logger.debug("user = " + session.getAttribute("user"));
 			logger.warn("bounced unlogged user to login page");
-			response.sendRedirect("/TOPS/login.jsp");
+			response.sendRedirect("/" + deployDir + "/login.jsp");
 			return;
 		}		
 		

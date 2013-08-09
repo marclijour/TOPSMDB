@@ -1,3 +1,11 @@
+version 2.0.1 - August 9, 2013
+- made deploy directory a config variable defined in web.xml to ease the deployment of a testing server
+- updated the doc (setup and deployment hints)
+
+version 2.0 - August 7, 2013
+- merged Cell and TOPSMember into a single class
+- added API calls (IsMember and MemberData)
+
 version 1.9.1 - July 30, 2013
 - clean-up
 

@@ -21,10 +21,14 @@ private static Logger logger = Logger.getLogger(reports_jsp.class);
 %>
 <%@ page session="true" %>
 <%
+final String deployDir = application.getInitParameter("deploy-dir");
+if(!deployDir.contains("TOPS"))
+	logger.warn("The deploy directory (" + deployDir + " does not contain \"TOPS\"");
+	
 if(session.getAttribute("user")==null) {
 	//logger.debug("reports.jsp: user = " + session.getAttribute("user"));
 	logger.warn("bounced unlogged user to login page");
-	response.sendRedirect("/TOPS/login.jsp");
+	response.sendRedirect("/" + deployDir + "/login.jsp");
 	return;
 }
 %>

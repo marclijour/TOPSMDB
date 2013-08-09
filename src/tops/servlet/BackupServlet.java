@@ -56,7 +56,7 @@ public class BackupServlet extends HttpServlet {
 	private static String dlDir = "/tmp/"; 		// to bet set up in init()
 	private static String dbname = "nonameDB";	// fallback ; see init from config file defined in WEB-INF/web.xml
     private DataSource ds = null;
-    
+    private String deployDir = " ERROR";
     private static File latestZippedBackup = null;
        
     /**
@@ -80,7 +80,13 @@ public class BackupServlet extends HttpServlet {
 		logger.info("Download directory identified as: " + BackupServlet.dlDir);
 		
 		// used for file management (e.g. renaming file)
-		BackupServlet.dbname = context.getInitParameter("dbname");
+		BackupServlet.dbname = context.getInitParameter("dbname");	// TODO check for possible clean up
+		
+		// deployment directory
+    	context = getServletContext();
+    	deployDir = context.getInitParameter("deploy-dir");	// defined in WEB-INF/web.xml
+    	if(!deployDir.contains("TOPS"))
+    		logger.warn("The deploy directory (" + deployDir + " does not contain \"TOPS\"");
     	
     	// setting up data source 
         Context ctx;
@@ -102,7 +108,7 @@ public class BackupServlet extends HttpServlet {
 		if(session.getAttribute("user")==null) {
 			//logger.debug("user = " + session.getAttribute("user"));
 			logger.warn("unlogged user bounced to login page");
-			response.sendRedirect("/TOPS/login.jsp");
+			response.sendRedirect("/" + deployDir + "/login.jsp");
 			return;
 		}
 		
@@ -123,7 +129,7 @@ public class BackupServlet extends HttpServlet {
 			
 			out.print("<p>The database has been backed-up as '<b>" + backupFile + "</b>'.</p>");
 			
-			out.print("<p><a href='/TOPS/"
+			out.print("<p><a href='/" + deployDir + "/"
 						+ BackupServlet.dlDirName + latestZippedBackup.getName() 
 						+ "'>Back-up (zip file)</a> is available for download.</p>");
 			

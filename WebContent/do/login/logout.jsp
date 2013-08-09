@@ -20,10 +20,14 @@
 private static Logger logger = Logger.getLogger(logout_jsp.class);
 %>
 <%
+final String deployDir = application.getInitParameter("deploy-dir");
+if(!deployDir.contains("TOPS"))
+	logger.warn("The deploy directory (" + deployDir + " does not contain \"TOPS\"");
+	
 logger.info("logout.jsp: logging out user " + session.getAttribute("user"));
 session.setAttribute("user", null);
 session.setAttribute("role", null);
 session.setAttribute("firstname", null);
 session.invalidate();
-response.sendRedirect("/TOPS/login.jsp");
+response.sendRedirect("/" + deployDir + "/login.jsp");
 %>

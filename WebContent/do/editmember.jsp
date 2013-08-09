@@ -21,18 +21,22 @@ private static Logger logger = Logger.getLogger(editmember_jsp.class);
 %>
 <%@ page session="true" %>
 <%
+final String deployDir = application.getInitParameter("deploy-dir");
+if(!deployDir.contains("TOPS"))
+	logger.warn("The deploy directory (" + deployDir + " does not contain \"TOPS\"");
+	
 String user = (String)session.getAttribute("user");
 if(user==null) {
 	//logger.debug("addmember.jsp: user = " + session.getAttribute("user"));
 	logger.warn("bounced unlogged user to login page");
-	response.sendRedirect("/TOPS/login.jsp");
+	response.sendRedirect("/" + deployDir + "/login.jsp");
 	return;
 }
 
 String role = (String)session.getAttribute("role");
 if(role == null || role.equals("Guest")) {
 	logger.warn("Guest user " + user + " attempted to edit a member");
-	response.sendRedirect("/TOPS/"); // could be made more painful by logging the user out (punishment for working around JS)
+	response.sendRedirect("/" + deployDir + "/"); // could be made more painful by logging the user out (punishment for working around JS)
 	return;
 }
 %>
@@ -62,7 +66,7 @@ if(role == null || role.equals("Guest")) {
 	String emailUpdate = (email.equals(""))?"yes":"no";
 %>
 <div id="formContainer">
-<form name="editForm" method="get"  action="/TOPS/EditMemberServlet" onsubmit="return validateForm()">
+<form name="editForm" method="get"  action="/<%= deployDir %>/EditMemberServlet" onsubmit="return validateForm()">
 <p class="addforminfo"><span class="asterisk">(*)</span>Fields marked with an asterisk are mandatory</p>
 <span class="label">First name</span><span class="asterisk">(*)</span><input id="inputfirstname" class="addform" type="text" name="firstname" value='<%= firstname %>'/>
 <span class="label">Last name</span><span class="asterisk">(*)</span><input class="addform" type="text" name="lastname" value="<%= lastname %>"/>
@@ -113,7 +117,7 @@ if(role == null || role.equals("Guest")) {
 <span class="label">Rationale</span><span class="asterisk">&nbsp;</span><input class="addform" type="text" name="leftwhy" value="<%= leftwhy %>"/>
 <% } %>
 <%-- TODO add subscription (newsflash / TOPSpot) config here or open another page --%>
-<input id="editformcancel" type="button" value="Cancel" onclick="window.location.href='/TOPS/'"/>
+<input id="editformcancel" type="button" value="Cancel" onclick="window.location.href='/<%= deployDir %>/'"/>
 <input id="editformsubmit" type="submit" value="Submit"/>
 <input type="hidden" name="emailUpdate" value="<%= emailUpdate %>"/>
 </form>

@@ -21,9 +21,13 @@ private static Logger logger = Logger.getLogger(success_jsp.class);
 %>
 <%@page session="true"%>
 <%
+final String deployDir = application.getInitParameter("deploy-dir");
+if(!deployDir.contains("TOPS"))
+	logger.warn("The deploy directory (" + deployDir + " does not contain \"TOPS\"");
+	
 if(session.getAttribute("user")==null){
 	logger.warn("bounced unlogged user to login page");
-	response.sendRedirect("/TOPS/login.jsp");
+	response.sendRedirect("/" + deployDir + "/login.jsp");
 	return;
 }
 %>
@@ -37,7 +41,7 @@ if(session.getAttribute("user")==null){
 <body>
 <center>
 <h1>You are successfully logged in</h1>
-<h3><a href="/TOPS/do/login/logout.jsp">Logout</a></h3>
+<h3><a href="/<%= deployDir %>/do/login/logout.jsp">Logout</a></h3>
 </center>
 </body>
 </html>
