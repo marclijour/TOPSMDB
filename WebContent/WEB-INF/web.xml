@@ -22,7 +22,7 @@
   </context-param>
   <context-param>
     <param-name>version</param-name>
-    <param-value>Version 2.0 - August 7, 2013</param-value>
+    <param-value>Version 2.0.1 - August 9, 2013</param-value>
   </context-param>
   <context-param>
   	<description>Directory where this webapp is deployed (e.g. TOPS in www.lijour.net/TOPS/). It should contain "TOPS".</description>

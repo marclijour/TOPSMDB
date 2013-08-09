@@ -89,7 +89,7 @@ public class AddMemberServlet extends HttpServlet {
 		
 		if(user == null) {
 			logger.debug("user = null");
-			response.sendRedirect("/" + deployDir + ""/login.jsp");
+			response.sendRedirect("/" + deployDir + "/login.jsp");
 			return;
 		}	
 		
